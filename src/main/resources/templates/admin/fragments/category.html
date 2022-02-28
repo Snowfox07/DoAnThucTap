@@ -12,88 +12,6 @@ layout:decorate="~{admin/index}">
                 <h1 class="h3 mb-0 text-gray-800">Category</h1>
                 <hr>
             </div>
-            <!-- DataTales Example -->
-<!--            <div class="card shadow mb-4">-->
-<!--                <div class="card-header py-3">-->
-<!--                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>-->
-<!--                </div>-->
-<!--                <div class="card-body">-->
-<!--                    <div class="table-responsive">-->
-<!--                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">-->
-<!--                            <thead>-->
-<!--                            <tr>-->
-<!--                                <th>Name</th>-->
-<!--                                <th>Position</th>-->
-<!--                                <th>Office</th>-->
-<!--                                <th>Age</th>-->
-<!--                                <th>Start date</th>-->
-<!--                                <th>Salary</th>-->
-<!--                            </tr>-->
-<!--                            </thead>-->
-<!--                            <tfoot>-->
-<!--                            <tr>-->
-<!--                                <th>Name</th>-->
-<!--                                <th>Position</th>-->
-<!--                                <th>Office</th>-->
-<!--                                <th>Age</th>-->
-<!--                                <th>Start date</th>-->
-<!--                                <th>Salary</th>-->
-<!--                            </tr>-->
-<!--                            </tfoot>-->
-<!--                            <tbody>-->
-<!--                            <tr>-->
-<!--                                <td>Tiger Nixon</td>-->
-<!--                                <td>System Architect</td>-->
-<!--                                <td>Edinburgh</td>-->
-<!--                                <td>61</td>-->
-<!--                                <td>2011/04/25</td>-->
-<!--                                <td>$320,800</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td>Garrett Winters</td>-->
-<!--                                <td>Accountant</td>-->
-<!--                                <td>Tokyo</td>-->
-<!--                                <td>63</td>-->
-<!--                                <td>2011/07/25</td>-->
-<!--                                <td>$170,750</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td>Ashton Cox</td>-->
-<!--                                <td>Junior Technical Author</td>-->
-<!--                                <td>San Francisco</td>-->
-<!--                                <td>66</td>-->
-<!--                                <td>2009/01/12</td>-->
-<!--                                <td>$86,000</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td>Cedric Kelly</td>-->
-<!--                                <td>Senior Javascript Developer</td>-->
-<!--                                <td>Edinburgh</td>-->
-<!--                                <td>22</td>-->
-<!--                                <td>2012/03/29</td>-->
-<!--                                <td>$433,060</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td>Airi Satou</td>-->
-<!--                                <td>Accountant</td>-->
-<!--                                <td>Tokyo</td>-->
-<!--                                <td>33</td>-->
-<!--                                <td>2008/11/28</td>-->
-<!--                                <td>$162,700</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td>Brielle Williamson</td>-->
-<!--                                <td>Integration Specialist</td>-->
-<!--                                <td>New York</td>-->
-<!--                                <td>61</td>-->
-<!--                                <td>2012/12/02</td>-->
-<!--                                <td>$372,000</td>-->
-<!--                            </tr>-->
-<!--                            </tbody>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
             <div class ="container">
                 <!-- <div class = "box"> -->
                 <div class="container-fluid">
@@ -123,31 +41,29 @@ layout:decorate="~{admin/index}">
                                     </thead>
 
                                     <tbody>
-                                    <th:foreach var="lst" items="${prod}">
-                                        <tr>
-                                            <td>${lst.id }</td>
-                                            <td>${lst.name }</td>
-                                            <td>${lst.price }</td>
-                                            <td>${lst.photo }</td>
-                                            <td>${lst.description }</td>
-                                            <td>${lst.discount }</td>
-                                            <td>${lst.quantity }</td>
-                                            <td><a th:href="@{~/category/delete/${id}}" onclick = "myFunction()">Delete</a>
-                                                <script>
-                                                    function myFunction() {
-                                                        if(confirm("Bạn chắc chắn muốn xoá?") == true) {
-                                                            document.getElementById("id").submit();
-                                                        }
-                                                        else {
-                                                            event.preventDefault();
-                                                            return;
-                                                        }
+                                    <tr th:each="list:${listCategory}">
+                                        <td th:utext="${list.id }"></td>
+                                        <td th:utext="${list.name }"></td>
+                                        <td th:utext="${list.orderIndex }"></td>
+                                        <td th:utext="${list.parent }"></td>
+                                        <td th:utext="${list.slug }"></td>
+                                        <td th:utext="${list.createAt }"></td>
+                                        <td th:utext="${list.updateAt }"></td>
+                                        <td><a th:href="@{/category/delete(id=${list.id})}" onclick = "myFunction()">Delete</a>
+                                            <script>
+                                                function myFunction() {
+                                                    if(confirm("Bạn chắc chắn muốn xoá?") == true) {
+                                                        document.getElementById("id").submit();
                                                     }
-                                                </script>
-                                            </td>
-                                            <td><a th:href="@{~/category/update/${id}}">Update</a></td>
-                                        </tr>
-                                    </th:foreach>
+                                                    else {
+                                                        event.preventDefault();
+                                                        return;
+                                                    }
+                                                }
+                                            </script>
+                                        </td>
+                                        <td><a th:href="@{~/category/update/${id}}">Update</a></td>
+                                    </tr>
                                     </tbody>
                                 </table>
 
