@@ -32,8 +32,8 @@ public class OrderEntity {
     private String phone;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private String createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private String updatedAt;
 }

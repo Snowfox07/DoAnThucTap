@@ -8,5 +8,6 @@ import java.util.List;
 public interface ICategoryService {
     CategoryEntity save(CategoryDTO category);
     List<CategoryDTO> listCategory();
-    void delete(Long id);
+    void delete(CategoryDTO categoryDTO);
+    CategoryDTO findCategoryById(int id);
 }

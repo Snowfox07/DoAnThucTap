@@ -36,10 +36,10 @@ public class UserEntity {
     private String sex;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private String createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private String updatedAt;
 
     @OneToMany(mappedBy = "user")
     private List<ProductEntity> listProduct = new ArrayList<>();

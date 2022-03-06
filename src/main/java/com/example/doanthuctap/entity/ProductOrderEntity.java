@@ -31,8 +31,8 @@ public class ProductOrderEntity {
     private int quantity;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private String createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private String updatedAt;
 }

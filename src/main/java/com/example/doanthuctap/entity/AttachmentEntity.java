@@ -29,10 +29,10 @@ public class AttachmentEntity {
     private String path;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private String createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private String updatedAt;
 
     @ManyToOne()
     @JoinColumn(name = "product_id")

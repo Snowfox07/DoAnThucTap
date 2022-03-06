@@ -36,14 +36,24 @@ public class CategoryService implements ICategoryService {
         List<CategoryEntity> list = categoryRepository.findAll();
         List<CategoryDTO> listDTO = new ArrayList<>();
         for (CategoryEntity item: list) {
-            CategoryDTO dto = categoryConverter.toDTO(item);
-            listDTO.add(dto);
+            if(item.isDelete()==false){
+                CategoryDTO dto = categoryConverter.toDTO(item);
+                listDTO.add(dto);
+            }
         }
         return listDTO;
     }
 
     @Override
-    public void delete(Long id) {
-        categoryRepository.deleteById(id);
+    public void delete(CategoryDTO categoryDTO) {
+        categoryRepository.delete(categoryConverter.toEntity(categoryDTO));
     }
+
+    @Override
+    public CategoryDTO findCategoryById(int id) {
+        CategoryEntity categoryEntity = categoryRepository.getOne(id);
+        CategoryDTO categoryDTO = categoryConverter.toDTO(categoryEntity);
+        return categoryDTO;
+    }
+
 }

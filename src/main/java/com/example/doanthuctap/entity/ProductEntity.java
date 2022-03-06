@@ -48,10 +48,10 @@ public class ProductEntity {
     private String image;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private String createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private String updatedAt;
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
@@ -64,7 +64,4 @@ public class ProductEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
-    @ManyToMany()
-    @JoinTable(name = "product_tag", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private List<TagEntity> tags = new ArrayList<>();
 }

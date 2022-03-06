@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Getter
@@ -11,10 +12,9 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class CategoryDTO {
     private int id;
+    @NotBlank(message = "Name cannot be blank")
     private String name;
-    private int orderIndex;
-    private int parent;
-    private String slug;
-    private Date createAt;
-    private Date updateAt;
+    private String createdAt;
+    private String updatedAt;
+    private boolean isDelete;
 }

@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div layout:fragment="content">
@@ -11,22 +16,20 @@
             <div class = "box">
                 <h3>Thêm mới category</h3>
                 <hr>
-                <form action = "admin/category/insert.htm" modelAttribute="cate">
+                <form action = "#" th:action="@{/category/insert}" th:object="${category}" method="post">
 
                     <div class = "form-group row">
                         <label class = "col-sm-1 col-form-label" >Tên </label>
-                        <div class = "col-sm-3">
-                            <input path="name"/>
+                        <div class = "col-sm-6">
+                            <input type="text" th:field="*{name}" placeholder="" th:errorClass="is-invalid"/>
+                            <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
                         </div>
-                        <errors path = "name"/>
                     </div>
-
                     <div class = "form-group row">
-
                         <div class = "col-sm-4">
-                            <button type = "submit" class ="btn btn-primary">Cập nhật</button>
+                            <button type = "submit" class ="btn btn-primary">Thêm</button>
                             <button type = "reset" class ="btn btn-success">Nhập lại</button>
-                            <a href="admin/category/index.htm" type = "button" class ="btn btn-danger">Thoát</a>
+                            <a th:href="@{~/category/list-category}" type = "button" class ="btn btn-danger">Thoát</a>
                         </div>
                     </div>
                 </form>

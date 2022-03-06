@@ -1,10 +1,12 @@
 package com.example.doanthuctap.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,20 +26,14 @@ public class CategoryEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "slug")
-    private String slug;
-
-    @Column(name = "order_index")
-    private int orderIndex;
-
-    @Column(name = "parent")
-    private int parent;
-
     @Column(name = "created_at")
-    private Date createdAt;
+    private String createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private String updatedAt;
+
+    @Column(name = "isdelete")
+    private boolean isDelete = Boolean.FALSE;
 
     @OneToMany(mappedBy = "category")
     private List<ProductEntity> listProduct = new ArrayList<>();
