@@ -39,10 +39,27 @@ public class ProductService implements IProductService {
         return listDTO;
     }
 
+    @Override
+    public List<ProductDTO> listProductByCategoryId(int id) {
+        List<ProductEntity> list = productRepository.findAllByCategory_Id(id);
+        List<ProductDTO> listDTO = new ArrayList<>();
+        for (ProductEntity item: list) {
+            if(item.isDelete()==false){
+                ProductDTO dto = productConverter.toDTO(item);
+                listDTO.add(dto);
+            }
+        }
+        return listDTO;
+    }
 
 
     @Override
     public ProductEntity save(ProductDTO productDTO) {
         return productRepository.save(productConverter.toEntity(productDTO));
+    }
+
+    @Override
+    public ProductDTO getProductById(int id) {
+        return productConverter.toDTO(productRepository.findById(id).get());
     }
 }

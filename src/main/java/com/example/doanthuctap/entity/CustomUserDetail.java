@@ -1,36 +1,33 @@
-package com.example.doanthuctap.service.implement;
+package com.example.doanthuctap.entity;
 
-import com.example.doanthuctap.entity.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
-
-public class CustomUserDetail implements UserDetails {
-    private UserEntity userEntity;
-
-    public CustomUserDetail(UserEntity userEntity) {
-        this.userEntity = userEntity;
+public class CustomUserDetail extends UserEntity implements UserDetails {
+    public CustomUserDetail(UserEntity userEntity){
+        super(userEntity);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(userEntity.getRole()));
-    }
-
-    @Override
-    public String getPassword() {
-        return userEntity.getPassWord();
+        List<GrantedAuthority> authorityList = new ArrayList<>();
+        authorityList.add(new SimpleGrantedAuthority("ADMIN"));
+        authorityList.add(new SimpleGrantedAuthority("USER"));
+        return authorityList;
     }
 
     @Override
     public String getUsername() {
-        return userEntity.getEmail();
+        return super.getEmail();
+    }
+    @Override
+    public String getPassword() {
+        return super.getPassWord();
     }
 
     @Override

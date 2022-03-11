@@ -1,11 +1,13 @@
 package com.example.doanthuctap.security;
 
+import com.example.doanthuctap.service.implement.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,39 +25,64 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomUserDetailService customUserDetailService;
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userDetailsService);
-        auth.setPasswordEncoder(passwordEncoder());
-        return auth;
-    }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/resources/**",
+                "/static/**",
+                "/templates/**",
+                "/images/**",
+                "/productImages/**",
+                "/css/**",
+                "/scss/**",
+                "/vendor/**",
+                "/js/**");
+    }//bo qua authen cac package nay
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
+        auth.userDetailsService(customUserDetailService);
+    }//chon model quan li thong tin account
 
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/").permitAll();
-//        httpSecurity.authorizeRequests().antMatchers("/**/*.js", "/**/*.css", "/**/*.jpg", "/**/*.png" , "/login" , "/register" , "/forgot-password").permitAll();
-//        httpSecurity.authorizeRequests().antMatchers("/admin/*").access("hasRole('ADMIN')");
-//        httpSecurity.authorizeRequests().antMatchers("/client/*").access("hasRole('USER')");
-//        httpSecurity.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                //permit all url
+                .authorizeRequests()
+                .antMatchers("/").permitAll()
+//                .antMatchers("/**/*.js", "/**/*.css", "/**/*.jpg", "/**/*.png" , "/login" , "/register" , "/forgot-password").permitAll()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/client/**").hasRole("USER")
+//                .anyRequest()
+//                .authenticated()
 //
-//        httpSecurity.authorizeRequests().and().formLogin()//
-//                // Submit URL của trang login
-//                .loginProcessingUrl("/login") // Submit URL
-//                .loginPage("/login")//
-//                .defaultSuccessUrl("/admin/index")//
-//                .failureUrl("/login?error=true")//
-//                .usernameParameter("username")//
+//                //check login
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .usernameParameter("email")
 //                .passwordParameter("password")
-//                // Cấu hình cho Logout Page.
-//                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
+//                .defaultSuccessUrl("/admin/index")
+//                .failureUrl("/login?error= true")
+//
+//                //when you logout
+//                .and()
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/login")
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID")
+//
+//                //declare exeption
+//                .and()
+//                .exceptionHandling()
+
+                //csrf to create token with thymeleaf
+                .and()
+                .csrf()
+                .disable();
+        http.headers().frameOptions().disable();
     }
 
 

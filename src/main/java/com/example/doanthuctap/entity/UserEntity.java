@@ -1,5 +1,6 @@
 package com.example.doanthuctap.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Data
 @RequiredArgsConstructor
 @Table(name="users")
 public class UserEntity {
@@ -44,5 +46,16 @@ public class UserEntity {
     @Column(name = "role")
     private String role;
 
-
+    public UserEntity(UserEntity user) {
+        this.id = user.id;
+        this.name = user.name;
+        this.email = user.email;
+        this.cmnd = user.cmnd;
+        this.passWord = user.passWord;
+        this.sex = user.sex;
+        this.createdAt = user.createdAt;
+        this.updatedAt = user.updatedAt;
+        this.isDelete = user.isDelete;
+        this.role = user.role;
+    }
 }
