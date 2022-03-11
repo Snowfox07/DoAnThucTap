@@ -4,23 +4,22 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
 public class ProductDTO {
     private int id;
+    @NotBlank(message = "Name cannot be blank")
     private String name;
-    private String code;
-    private String content;
-    private int regularPrice;
-    private int salePrice;
-    private int originalPrice;
+    private String description;
+    private long salePrice;
     private int quantity;
-    private String attributes;
     private String image;
-    private Date createdAt;
-    private Date updatedAt;
-
+    private String createdAt;
+    private String updatedAt;
+    private boolean isDelete;
+    private int categoryId;
+    private String categoryName;
 }

@@ -2,11 +2,13 @@ package com.example.doanthuctap.service;
 
 import com.example.doanthuctap.dto.UserDTO;
 import com.example.doanthuctap.entity.UserEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface IUserService {
-    UserEntity saveUser(UserDTO userDTO);
-    UserEntity getUser(String email);
-    List<UserDTO> getUser();
+public interface IUserService{
+    UserEntity save(UserDTO userDTO) throws Exception;
+    List<UserDTO> listUser();
+    UserDTO findByEmail(String email);
+    List<UserDTO> listUserAll();
 }

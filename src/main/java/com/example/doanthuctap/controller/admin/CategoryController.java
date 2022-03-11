@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/admin/category")
 public class CategoryController {
 
     private CategoryService categoryService;
@@ -37,7 +37,7 @@ public class CategoryController {
         CategoryDTO category = categoryService.findCategoryById(id);
         category.setDelete(true);
         categoryService.save(category);
-        return "redirect:/category/list-category";
+        return "redirect:/admin/category/list-category";
     }
 
     @GetMapping("/insert")
@@ -57,7 +57,7 @@ public class CategoryController {
             categoryDTO.setCreatedAt(formatter.format(date));
             categoryService.save(categoryDTO);
         }
-        return "redirect:/category/list-category";
+        return "redirect:/admin/category/list-category";
     }
 
     @GetMapping("/update")
@@ -77,7 +77,7 @@ public class CategoryController {
             categoryDTO.setUpdatedAt(formatter.format(date));
             categoryService.save(categoryDTO);
         }
-        return "redirect:/category/list-category";
+        return "redirect:/admin/category/list-category";
     }
 
 }

@@ -9,7 +9,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Category</h1>
+            <h1 class="h3 mb-0 text-gray-800">User</h1>
             <hr>
         </div>
         <div class ="container">
@@ -17,11 +17,7 @@
             <div class="container-fluid">
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        <div class = "card-tittle">
-                            <a th:href="@{~/user/insert}"><button class ="btn btn-primary" method="get" style = "float:left">Insert</button></a>
-                            <br>
-                        </div>
-                        <br>
+
                         <div class="table-responsive">
 
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -29,34 +25,25 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Category name</th>
-                                    <th>Create date</th>
-                                    <th>Update date</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>Full name</th>
+                                    <th>Email</th>
+                                    <th>Citizen Identification</th>
+                                    <th>Sex</th>
+                                    <th>Create Date</th>
+                                    <th>Update Date</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                <tr th:each="list:${listCategory}">
+                                <tr th:each="list:${listuser}">
                                     <td th:utext="${list.id }"></td>
                                     <td th:utext="${list.name }"></td>
+                                    <td th:utext="${list.email }"></td>
+                                    <td th:utext="${list.cmnd }"></td>
+                                    <td th:utext="${list.sex }"></td>
                                     <td th:utext="${list.createdAt }"></td>
                                     <td th:utext="${list.updatedAt }"></td>
-                                    <td><a class="text-danger" th:href="@{/category/delete(id=${list.id})}" onclick = "myFunction()">Delete</a>
-                                        <script>
-                                            function myFunction() {
-                                                if(confirm("Bạn chắc chắn muốn xoá?") == true) {
-                                                    document.getElementById("id").submit();
-                                                }
-                                                else {
-                                                    event.preventDefault();
-                                                    return;
-                                                }
-                                            }
-                                        </script>
-                                    </td>
-                                    <td><a th:href="@{~/category/update(id=${list.id})}">Update</a></td>
+
                                 </tr>
                                 </tbody>
                             </table>

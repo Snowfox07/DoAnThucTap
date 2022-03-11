@@ -16,7 +16,7 @@
         <div class = "box">
             <h3>Cập nhật category</h3>
             <hr>
-            <form action = "#" th:action="@{/category/update}" th:object="${category}" method="post">
+            <form action = "#" th:action="@{/admin/category/update}" th:object="${category}" method="post">
                 <input type="hidden" th:field="*{id}"/>
                 <input type="hidden" th:field="*{createdAt}"/>
                 <div class = "form-group row">
@@ -30,7 +30,7 @@
                     <div class = "col-sm-4">
                         <button type = "submit" class ="btn btn-primary">Cập nhật</button>
                         <button type = "reset" class ="btn btn-success">Nhập lại</button>
-                        <a th:href="@{~/category/list-category}" type = "button" class ="btn btn-danger">Thoát</a>
+                        <a th:href="@{~/admin/category/list-category}" type = "button" class ="btn btn-danger">Thoát</a>
                     </div>
                 </div>
             </form>

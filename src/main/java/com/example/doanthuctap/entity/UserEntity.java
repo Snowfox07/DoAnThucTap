@@ -5,9 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Getter
@@ -41,6 +38,11 @@ public class UserEntity {
     @Column(name = "updated_at")
     private String updatedAt;
 
-    @OneToMany(mappedBy = "user")
-    private List<ProductEntity> listProduct = new ArrayList<>();
+    @Column(name = "isdelete")
+    private boolean isDelete = Boolean.FALSE;
+
+    @Column(name = "role")
+    private String role;
+
+
 }

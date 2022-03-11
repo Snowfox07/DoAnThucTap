@@ -23,26 +23,14 @@ public class ProductEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "code")
-    private String code;
-
-    @Column(name = "content")
-    private String content;
-
-    @Column(name = "regularprice")
-    private int regularPrice;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "saleprice")
-    private int salePrice;
-
-    @Column(name = "originalprice")
-    private int originalPrice;
+    private long salePrice;
 
     @Column(name = "quantity")
     private int quantity;
-
-    @Column(name = "attributes")
-    private String attributes;
 
     @Column(name = "image")
     private String image;
@@ -53,12 +41,8 @@ public class ProductEntity {
     @Column(name = "updated_at")
     private String updatedAt;
 
-    @ManyToOne()
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
-
-    @OneToMany(mappedBy = "product")
-    private List<AttachmentEntity> listAttachment = new ArrayList<>();
+    @Column(name = "isdelete")
+    private boolean isDelete = Boolean.FALSE;
 
     @ManyToOne()
     @JoinColumn(name = "category_id")

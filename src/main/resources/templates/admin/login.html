@@ -34,15 +34,19 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form class="user">
+                                <form action="#" th:object="${userlogin}" method="post" th:action="@{/login}">
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                               id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address...">
+                                        <input type="email" th:field="*{email}" class="form-control form-control-user" id="exampleInputEmail"
+                                               name="username"
+                                               placeholder="Email Address">
+                                        <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Password">
+                                        <input type="password" th:field="*{passWord}" class="form-control form-control-user"
+                                               name="password"
+                                               id="InputPassword" placeholder="Password">
+                                        <p class="text-danger" th:if="${#fields.hasErrors('passWord')}" th:errors="*{passWord}"></p>
+                                        <p th:if="${error}" class="text-danger">email or password is invalid</p>
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -51,9 +55,9 @@
                                                 Me</label>
                                         </div>
                                     </div>
-                                    <a href="index" class="btn btn-primary btn-user btn-block">
+                                    <button type="submit"  class="btn btn-primary btn-user btn-block">
                                         Login
-                                    </a>
+                                    </button>
                                     <!--<hr>
                                     <a href="index.html" class="btn btn-google btn-user btn-block">
                                         <i class="fab fa-google fa-fw"></i> Login with Google

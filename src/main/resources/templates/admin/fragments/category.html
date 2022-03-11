@@ -18,7 +18,7 @@ layout:decorate="~{admin/index}">
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class = "card-tittle">
-                                <a th:href="@{~/category/insert}"><button class ="btn btn-primary" method="get" style = "float:left">Insert</button></a>
+                                <a th:href="@{~/admin/category/insert}"><button class ="btn btn-primary" method="get" style = "float:left">Insert</button></a>
                                 <br>
                             </div>
                             <br>
@@ -43,7 +43,7 @@ layout:decorate="~{admin/index}">
                                         <td th:utext="${list.name }"></td>
                                         <td th:utext="${list.createdAt }"></td>
                                         <td th:utext="${list.updatedAt }"></td>
-                                        <td><a class="text-danger" th:href="@{/category/delete(id=${list.id})}" onclick = "myFunction()">Delete</a>
+                                        <td><a class="text-danger" th:href="@{/admin/category/delete(id=${list.id})}" onclick = "myFunction()">Delete</a>
                                             <script>
                                                 function myFunction() {
                                                     if(confirm("Bạn chắc chắn muốn xoá?") == true) {
@@ -56,7 +56,7 @@ layout:decorate="~{admin/index}">
                                                 }
                                             </script>
                                         </td>
-                                        <td><a th:href="@{~/category/update(id=${list.id})}">Update</a></td>
+                                        <td><a th:href="@{~/admin/category/update(id=${list.id})}">Update</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
