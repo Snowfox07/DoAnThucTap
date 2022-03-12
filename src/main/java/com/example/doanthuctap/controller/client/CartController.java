@@ -23,4 +23,7 @@ public class CartController {
         model.addAttribute("cart", GlobalData.cart);
         return "cart";
     }//page cart
+
+
+
 }

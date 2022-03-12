@@ -6,6 +6,8 @@ import com.example.doanthuctap.entity.UserEntity;
 import com.example.doanthuctap.repository.UserRepository;
 import com.example.doanthuctap.service.implement.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -26,14 +29,19 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    UserRepository userRepository;
-
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @GetMapping("/login")
     public String login() {
         return "admin/login";
+    }
+
+    @GetMapping("/redirect")
+    public String redirect(Principal user){
+        UserDTO userDTO = userService.findByEmail(user.getName());
+        if(userDTO.getRole().equals("ADMIN")){
+            return "redirect:/admin/index";
+        } else return "redirect:/client/index";
     }
 
 //    @PostMapping("/login")

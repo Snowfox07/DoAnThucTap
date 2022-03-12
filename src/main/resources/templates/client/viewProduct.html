@@ -35,7 +35,10 @@
                     <a class="nav-link" th:href="@{/client/shop}" href="#">shop</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/client/cart}" href="#">cart<sup th:value="5"></sup></a>
+                    <a class="nav-link" th:href="@{/client/cart}" href="#">cart</a>
+                </li>
+                <li class="nav-item active">
+                    <span class="nav-link" >[[${#request.remoteUser}]]</span>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/logout}" href="#">logout</a>
@@ -54,7 +57,7 @@
         <div class="col-sm-7 mt-5">
             <h2 th:text="${product.name}"></h2>
             <p th:text="${product.categoryName}"></p>
-            <h2>₹ <span th:text="${product.salePrice}"></span></h2>
+            <h2>$ <span th:text="${product.salePrice}"></span> VND</h2>
             <p th:text="${product.description}"></p>
             <a href="" th:href="@{/client/addToCart/{id}(id = ${product.id})}" class="btn btn-primary">Add to cart</a>
         </div>
