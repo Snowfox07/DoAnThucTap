@@ -34,37 +34,22 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form action="#" th:object="${userlogin}" method="post" th:action="@{/login}">
+                                <form name="login" action="#"  method="post" th:action="@{/j_spring_security_check}">
                                     <div class="form-group">
-                                        <input type="email" th:field="*{email}" class="form-control form-control-user" id="exampleInputEmail"
-                                               name="username"
-                                               placeholder="Email Address">
-                                        <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                                        <input type="text"  class="form-control form-control-user" name="username" placeholder="Email Address">
+<!--                                        <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>-->
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" th:field="*{passWord}" class="form-control form-control-user"
-                                               name="password"
-                                               id="InputPassword" placeholder="Password">
-                                        <p class="text-danger" th:if="${#fields.hasErrors('passWord')}" th:errors="*{passWord}"></p>
-                                        <p th:if="${error}" class="text-danger">email or password is invalid</p>
+                                        <input type="password"  class="form-control form-control-user"  name="password" placeholder="Password">
+<!--                                        <p class="text-danger" th:if="${#fields.hasErrors('passWord')}" th:errors="*{passWord}"></p>-->
+<!--                                        <p th:if="${error}" class="text-danger">email or password is invalid</p>-->
                                     </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
-                                        </div>
+                                    <div th:if="${param.error}">
+                                        <p class="text-danger">Invalid email or password</p>
                                     </div>
                                     <button type="submit"  class="btn btn-primary btn-user btn-block">
                                         Login
                                     </button>
-                                    <!--<hr>
-                                    <a href="index.html" class="btn btn-google btn-user btn-block">
-                                        <i class="fab fa-google fa-fw"></i> Login with Google
-                                    </a>
-                                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                    </a>-->
                                 </form>
                                 <hr>
                                 <div class="text-center">

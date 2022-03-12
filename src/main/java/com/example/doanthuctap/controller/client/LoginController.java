@@ -2,8 +2,11 @@ package com.example.doanthuctap.controller.client;
 
 import com.example.doanthuctap.dto.LoginForm;
 import com.example.doanthuctap.dto.UserDTO;
+import com.example.doanthuctap.entity.UserEntity;
+import com.example.doanthuctap.repository.UserRepository;
 import com.example.doanthuctap.service.implement.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,49 +26,51 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    UserRepository userRepository;
+
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @GetMapping("/login")
-    public String login(Model theModel) {
-        LoginForm loginForm = new LoginForm();
-        theModel.addAttribute("userlogin", loginForm);
+    public String login() {
         return "admin/login";
     }
 
-    @PostMapping("/login")
-    public String loginUser(@Valid @ModelAttribute("userlogin") LoginForm userForm, Errors errors, Model theModel){
-        if (null != errors && errors.getErrorCount() > 0) {
-            return "admin/login";
-        }else {
-            List<UserDTO> userDTOList = userService.listUserAll();
-            UserDTO userDTO = new UserDTO();
-            boolean isTrue=false;
-            for (UserDTO item : userDTOList) {
-                if(item.getEmail().equals(userForm.getEmail())){
-                    isTrue = true;
-                    userDTO = item;
-                    break;
-                }
-            }
-            if(isTrue){
-                if(bCryptPasswordEncoder.matches(userForm.getPassWord(),userDTO.getPassWord())){
-                    if(userDTO.getRole().equals("ADMIN")){
-                        return "redirect:/admin/index";
-                    }else {
-                        return "redirect:/client/index";
-                    }
-
-                }else {
-                    theModel.addAttribute("error",true);
-                    return "admin/login";
-                }
-
-            }else {
-                theModel.addAttribute("error","email or password is invalid");
-                return "admin/login";
-            }
-        }
-    }
+//    @PostMapping("/login")
+//    public String loginUser(@Valid @ModelAttribute("userlogin") LoginForm userForm, Errors errors, Model theModel){
+//        if (null != errors && errors.getErrorCount() > 0) {
+//            return "admin/login";
+//        }else {
+//            System.out.println("anything");
+//            List<UserDTO> userDTOList = userService.listUserAll();
+//            UserDTO userDTO = new UserDTO();
+//            boolean isTrue=false;
+//            for (UserDTO item : userDTOList) {
+//                if(item.getEmail().equals(userForm.getEmail())){
+//                    isTrue = true;
+//                    userDTO = item;
+//                    break;
+//                }
+//            }
+//            if(isTrue){
+//                if(bCryptPasswordEncoder.matches(userForm.getPassWord(),userDTO.getPassWord())){
+//                    if(userDTO.getRole().equals("ADMIN")){
+//                        return "redirect:/admin/index";
+//                    }else {
+//                        return "redirect:/client/index";
+//                    }
+//
+//                }else {
+//                    theModel.addAttribute("error",true);
+//                    return "admin/login";
+//                }
+//
+//            }else {
+//                theModel.addAttribute("error","email or password is invalid");
+//                return "admin/login";
+//            }
+//        }
+//    }
 
     @GetMapping("/forgot-password")
     public String forgotPassword() {
@@ -84,7 +89,7 @@ public class LoginController {
         if (null != errors && errors.getErrorCount() > 0) {
             return "admin/register";
         } else {
-            List<UserDTO> list = userService.listUser();
+            List<UserDTO> list = userService.listUserAll();
             boolean isTrue=false;
             for (UserDTO item : list) {
                 if(item.getEmail().equals(user.getEmail())){
