@@ -41,6 +41,7 @@ public class LoginController {
     public String redirect(Principal user){
         UserDTO userDTO = userService.findByEmail(user.getName());
         GlobalData.currentUser = userDTO;
+        GlobalData.isCheckout=true;
         if(userDTO.getRole().equals("ADMIN")){
             return "redirect:/admin/index";
         } else {
@@ -101,7 +102,7 @@ public class LoginController {
         if (null != errors && errors.getErrorCount() > 0) {
             return "admin/register";
         } else {
-            List<UserDTO> list = userService.listUserAll();
+            List<UserDTO> list = userService.listUserAllIncludeDelete();
             boolean isTrue=false;
             for (UserDTO item : list) {
                 if(item.getEmail().equals(user.getEmail())){

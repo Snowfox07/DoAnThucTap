@@ -11,7 +11,7 @@ public class GlobalData {
 
     //tao bien toan cuc
     public static List<ProductEntity> cart;
-    public static boolean isCheckout = true;
+    public static boolean isCheckout;
     public static int idOrder;
     public static UserDTO currentUser;
 

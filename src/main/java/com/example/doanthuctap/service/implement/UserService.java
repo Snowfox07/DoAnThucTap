@@ -64,8 +64,24 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public List<UserDTO> listUserAllIncludeDelete() {
+        List<UserEntity> list = userRepository.findAll();
+        List<UserDTO> dtoList = new ArrayList<>();
+        for (UserEntity item: list) {
+            UserDTO dto = userConverter.toDTO(item);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    @Override
     public UserDTO findByEmail(String email) {
         return userConverter.toDTO(userRepository.findOneByEmail(email));
+    }
+
+    @Override
+    public UserDTO findById(int id) {
+        return userConverter.toDTO(userRepository.findById(id).get());
     }
 
 
