@@ -28,7 +28,7 @@ public class UserEntity {
     @Column(name = "cmnd")
     private String cmnd;
 
-    @Column(name = "password")
+    @Column(name = "password", length = 1024)
     private String passWord;
 
     @Column(name = "sex")
@@ -46,16 +46,4 @@ public class UserEntity {
     @Column(name = "role")
     private String role;
 
-    public UserEntity(UserEntity user) {
-        this.id = user.id;
-        this.name = user.name;
-        this.email = user.email;
-        this.cmnd = user.cmnd;
-        this.passWord = user.passWord;
-        this.sex = user.sex;
-        this.createdAt = user.createdAt;
-        this.updatedAt = user.updatedAt;
-        this.isDelete = user.isDelete;
-        this.role = user.role;
-    }
 }

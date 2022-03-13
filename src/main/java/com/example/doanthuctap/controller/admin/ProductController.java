@@ -1,9 +1,12 @@
 package com.example.doanthuctap.controller.admin;
 
+import com.example.doanthuctap.converter.ProductConverter;
 import com.example.doanthuctap.dto.CategoryDTO;
 import com.example.doanthuctap.dto.ProductDTO;
+import com.example.doanthuctap.repository.ProductRepository;
 import com.example.doanthuctap.service.implement.CategoryService;
 import com.example.doanthuctap.service.implement.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,6 +25,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/product")
 public class ProductController {
+
 
     private ProductService productService;
     private CategoryService categoryService;
@@ -50,9 +54,9 @@ public class ProductController {
     }
 
     @PostMapping("/insert")
-    public String addProduct(@Valid @ModelAttribute("product") ProductDTO productDTO,
+    public String addProduct(@Valid @ModelAttribute("product") ProductDTO productDTO, Errors errors,
                              @RequestParam("productImage") MultipartFile fileProductImage,
-                             @RequestParam("imgName") String imgName, Errors errors) throws IOException {
+                             @RequestParam("imgName") String imgName) throws IOException {
         if (null != errors && errors.getErrorCount() > 0) {
             return "admin/fragments/product-insert";
         } else {
@@ -66,7 +70,48 @@ public class ProductController {
                 Files.write(fileNameAndPath, fileProductImage.getBytes());
             }else {
                 imageUUID = "noimage.png";
+            }//save image
+            productDTO.setImage(imageUUID);
+            productService.save(productDTO);
+        }
+        return "redirect:/admin/product/list-product";
+    }
+
+    @GetMapping("/delete")
+    public String deleteProductById(@RequestParam("id") int id){
+        ProductDTO productDTO = productService.getProductById(id);
+        productDTO.setDelete(true);
+        productService.save(productDTO);
+        return "redirect:/admin/product/list-product";
+    }
+
+    @GetMapping("update")
+    public String formUpdateProduct(@RequestParam("id") int id, Model theModel){
+        ProductDTO productDTO = productService.getProductById(id);
+        List<CategoryDTO> list = categoryService.listCategory();
+        theModel.addAttribute("product", productDTO);
+        theModel.addAttribute("listcategory", list);
+        theModel.addAttribute("productImage", uploadDir);
+        return "admin/fragments/product-update";
+    }
+
+    @PostMapping("/update")
+    public String updateProduct(@Valid @ModelAttribute("product") ProductDTO productDTO, Errors errors,
+                             @RequestParam("productImage") MultipartFile fileProductImage,
+                             @RequestParam("imgName") String imgName) throws IOException {
+        if (null != errors && errors.getErrorCount() > 0) {
+            return "admin/fragments/product-update";
+        } else {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date date = new Date();
+            productDTO.setUpdatedAt(formatter.format(date));
+            String imageUUID;
+            if(!fileProductImage.isEmpty()){
+                imageUUID = fileProductImage.getOriginalFilename();
                 Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
+                Files.write(fileNameAndPath, fileProductImage.getBytes());
+            }else {
+                imageUUID = imgName;
             }//save image
             productDTO.setImage(imageUUID);
             productService.save(productDTO);

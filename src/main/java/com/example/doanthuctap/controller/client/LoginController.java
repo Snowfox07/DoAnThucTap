@@ -1,5 +1,6 @@
 package com.example.doanthuctap.controller.client;
 
+import com.example.doanthuctap.Utils.GlobalData;
 import com.example.doanthuctap.dto.LoginForm;
 import com.example.doanthuctap.dto.UserDTO;
 import com.example.doanthuctap.entity.UserEntity;
@@ -39,9 +40,12 @@ public class LoginController {
     @GetMapping("/redirect")
     public String redirect(Principal user){
         UserDTO userDTO = userService.findByEmail(user.getName());
+        GlobalData.currentUser = userDTO;
         if(userDTO.getRole().equals("ADMIN")){
             return "redirect:/admin/index";
-        } else return "redirect:/client/index";
+        } else {
+            return "redirect:/client/index";
+        }
     }
 
 //    @PostMapping("/login")
@@ -117,5 +121,15 @@ public class LoginController {
         }
         return "redirect:/login";
     }
+
+//    @GetMapping("/logout")
+//    public String logout(Principal principal){
+//        UserDTO userDTO = userService.findByEmail(principal.getName());
+//        if(userDTO.getRole().equals("ADMIN")){
+//            return "redirect:/login";
+//        }else {
+//
+//        }
+//    }
 
 }

@@ -13,8 +13,6 @@ public class OrderDTO {
     private int id;
     private int userId;
     private String address;
-    private String email;
     private String phone;
-    private Date createdAt;
-    private Date updatedAt;
+    private String createdAt;
 }

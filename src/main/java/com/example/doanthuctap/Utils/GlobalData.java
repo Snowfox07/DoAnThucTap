@@ -9,13 +9,11 @@ import java.util.List;
 
 public class GlobalData {
 
-    @Autowired
-    private UserConverter userConverter;
     //tao bien toan cuc
     public static List<ProductEntity> cart;
-    public static UserDTO userLogin;
-
-
+    public static boolean isCheckout = true;
+    public static int idOrder;
+    public static UserDTO currentUser;
 
     static {
         cart = new ArrayList<>();

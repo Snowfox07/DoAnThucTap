@@ -59,7 +59,7 @@
             <p th:text="${product.categoryName}"></p>
             <h2>$ <span th:text="${product.salePrice}"></span> VND</h2>
             <p th:text="${product.description}"></p>
-            <a href="" th:href="@{/client/addToCart/{id}(id = ${product.id})}" class="btn btn-primary">Add to cart</a>
+            <a href="" th:href="@{/client/cart/addToCart/{id}(id = ${product.id})}" class="btn btn-primary">Add to cart</a>
         </div>
     </div>
 </div>

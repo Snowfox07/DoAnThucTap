@@ -30,9 +30,4 @@ public class ProductOrderEntity {
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "created_at")
-    private String createdAt;
-
-    @Column(name = "updated_at")
-    private String updatedAt;
 }

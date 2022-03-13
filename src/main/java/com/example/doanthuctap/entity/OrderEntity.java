@@ -25,15 +25,8 @@ public class OrderEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "phone")
     private String phone;
 
     @Column(name = "created_at")
-    private String createdAt;
-
-    @Column(name = "updated_at")
-    private String updatedAt;
-}
+    private String createdAt;}

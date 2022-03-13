@@ -13,11 +13,8 @@ import java.util.Date;
 @Setter
 @RequiredArgsConstructor
 public class ProductOrderDTO {
-    private CompositeKeyProductOrder id;
-    private ProductEntity product;
-    private OrderEntity order;
+    private ProductDTO product;
+    private OrderDTO order;
     private int quantity;
-    private Date createdAt;
-    private Date updatedAt;
 
 }
