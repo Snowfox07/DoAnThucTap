@@ -15,4 +15,12 @@ public class OrderDTO {
     private String address;
     private String phone;
     private String createdAt;
+
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "id=" + id +
+                ", userId=" + userId +
+                '}';
+    }
 }

@@ -17,4 +17,12 @@ public class ProductOrderDTO {
     private OrderDTO order;
     private int quantity;
 
+    @Override
+    public String toString() {
+        return "ProductOrderDTO{" +
+                "product=" + product.toString() +
+                ", order=" + order.toString() +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

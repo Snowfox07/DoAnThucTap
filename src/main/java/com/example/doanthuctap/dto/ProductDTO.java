@@ -28,6 +28,15 @@ public class ProductDTO {
     private String createdAt;
     private String updatedAt;
     private boolean isDelete;
-    private int categoryId;
-    private String categoryName;
+    private CategoryDTO category;
+
+    @Override
+    public String toString() {
+        return "ProductDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", salePrice=" + salePrice +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

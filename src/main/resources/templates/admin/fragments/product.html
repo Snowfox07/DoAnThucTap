@@ -12,9 +12,9 @@
             <h1 class="h3 mb-0 text-gray-800">Product</h1>
             <hr>
         </div>
-        <div class ="container">
+        <div class ="container-fluid">
             <!-- <div class = "box"> -->
-            <div class="container">
+            <div class="container-fluid">
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <div class = "card-tittle">
@@ -48,10 +48,10 @@
                                     <td th:utext="${list.salePrice }"></td>
                                     <td th:utext="${list.quantity }"></td>
                                     <td><img src="" height="100px" width="100px"  th:src="@{${'/productImages/' + list.image}}"></td>
-                                    <td th:utext="${list.categoryName }"></td>
+                                    <td th:utext="${list.category.name }"></td>
                                     <td th:utext="${list.createdAt }"></td>
                                     <td th:utext="${list.updatedAt }"></td>
-                                    <td><a class="text-danger" th:href="@{/admin/product/delete(id=${list.id})}" onclick = "myFunction()">Delete</a>
+                                    <td><a class="btn btn-danger" th:href="@{/admin/product/delete(id=${list.id})}" onclick = "myFunction()">Delete</a>
                                         <script>
                                             function myFunction() {
                                                 if(confirm("Bạn chắc chắn muốn xoá?") == true) {
@@ -64,7 +64,7 @@
                                             }
                                         </script>
                                     </td>
-                                    <td><a th:href="@{~/admin/product/update(id=${list.id})}">Update</a></td>
+                                    <td><a class="btn btn-primary" th:href="@{~/admin/product/update(id=${list.id})}">Update</a></td>
                                 </tr>
                                 </tbody>
                             </table>

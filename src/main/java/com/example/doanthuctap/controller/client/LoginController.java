@@ -1,15 +1,9 @@
 package com.example.doanthuctap.controller.client;
 
 import com.example.doanthuctap.Utils.GlobalData;
-import com.example.doanthuctap.dto.LoginForm;
 import com.example.doanthuctap.dto.UserDTO;
-import com.example.doanthuctap.entity.UserEntity;
-import com.example.doanthuctap.repository.UserRepository;
 import com.example.doanthuctap.service.implement.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,4 +31,18 @@ public class OrderEntity {
     private String phone;
 
     @Column(name = "created_at")
-    private String createdAt;}
+    private String createdAt;
+
+    @OneToMany(mappedBy = "order")
+    private List<ProductOrderEntity> productOrderEntities = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", userId=" + userId +
+                '}';
+    }
+}
+
+

@@ -26,4 +26,13 @@ public class UserDTO {
     private String updatedAt;
     private boolean isDelete;
     private String role;
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

@@ -55,8 +55,9 @@ public class ProductController {
 
     @PostMapping("/insert")
     public String addProduct(@Valid @ModelAttribute("product") ProductDTO productDTO, Errors errors,
-                             @RequestParam("productImage") MultipartFile fileProductImage,
-                             @RequestParam("imgName") String imgName) throws IOException {
+                             @RequestParam("productImage") MultipartFile fileProductImage, Model theModel) throws IOException {
+        List<CategoryDTO> list = categoryService.listCategory();
+        theModel.addAttribute("listcategory", list);
         if (null != errors && errors.getErrorCount() > 0) {
             return "admin/fragments/product-insert";
         } else {
@@ -98,7 +99,9 @@ public class ProductController {
     @PostMapping("/update")
     public String updateProduct(@Valid @ModelAttribute("product") ProductDTO productDTO, Errors errors,
                              @RequestParam("productImage") MultipartFile fileProductImage,
-                             @RequestParam("imgName") String imgName) throws IOException {
+                             @RequestParam("imgName") String imgName, Model theModel) throws IOException {
+        List<CategoryDTO> list = categoryService.listCategory();
+        theModel.addAttribute("listcategory", list);
         if (null != errors && errors.getErrorCount() > 0) {
             return "admin/fragments/product-update";
         } else {

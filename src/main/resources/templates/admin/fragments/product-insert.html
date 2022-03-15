@@ -42,10 +42,10 @@
                     </div>
                     <div class="form-group">
                         <label for="category">Select Category</label>
-                        <select class="form-control" th:field="*{categoryId}" id="category" name="category">
-                            <option th:each="category :${listcategory}"
-                                    th:value="${category.id}"
-                                    th:text="${category.name}"
+                        <select class="form-control" th:field="*{category.id}" id="category" name="category">
+                            <option th:each="categorys :${listcategory}"
+                                    th:value="${categorys.id}"
+                                    th:text="${categorys.name}"
                             >
                         </select>
                     </div>

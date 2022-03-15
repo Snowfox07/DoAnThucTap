@@ -3,6 +3,7 @@ package com.example.doanthuctap.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,4 +31,14 @@ public class ProductOrderEntity {
     @Column(name = "quantity")
     private int quantity;
 
+
+    @Override
+    public java.lang.String toString() {
+        return "ProductOrderEntity{" +
+                "id=" + id +
+                ", product=" + product.toString() +
+                ", order=" + order.toString() +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
