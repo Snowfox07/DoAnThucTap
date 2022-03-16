@@ -40,8 +40,8 @@ public class CartController {
 
     @GetMapping()
     public String cartGet(Model model) {
-        model.addAttribute("cartCount", null);
-        model.addAttribute("total", null);
+        model.addAttribute("cartCount", GlobalData.carts.size());
+        model.addAttribute("total", total());
         model.addAttribute("cart", GlobalData.carts);
         return "client/cart";
     }
@@ -73,13 +73,23 @@ public class CartController {
         return "redirect:/client/shop";
     }//click add from page viewProduct
 
+
+    @GetMapping("/delete")
+    public String deleteItemCart(){
+        return "redirect:/client/cart";
+    }
+
     public ProductOrderDTO getProduct(int productId, int orderId){
         ProductOrderDTO productOrderDTO = productOrderService.getOrderByProductIdAndOrderId(productId,orderId);
         return productOrderDTO;
     }
 
-    public boolean productIdIsExist(int id){
-        return productOrderService.findByProductId(id);
+    public Long total(){
+        Long total=0L;
+        for (int i=0;i<GlobalData.carts.size();i++){
+            total+=GlobalData.carts.get(i).getSalePrice()*getProduct(GlobalData.carts.get(i).getId(),GlobalData.orderDTO.getId()).getQuantity();
+        }
+        return total;
     }
 
 }

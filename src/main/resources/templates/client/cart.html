@@ -49,7 +49,7 @@
     </div>
 </nav>
 <main>
-    <div class="container">
+    <div class="container-fluid">
 
         <!--Section: Block Content-->
         <section class="mt-5 mb-4">
@@ -64,21 +64,25 @@
                     <div class="card wish-list mb-4">
                         <div class="card-body">
 
-                            <h5 class="mb-4">Cart (<span>2</span> items)</h5>
+                            <h5 class="mb-4">Cart (<span th:text="${cartCount}"></span> items)</h5>
 
                             <div class="row mb-4" th:each="item, iStat : ${cart}">
-                                <div class="col-md-5 col-lg-3 col-xl-3">
+                                <div class="col-md-2 col-lg-2 col-xl-2">
                                     <div class="mb-3 mb-md-0">
-                                        <img class="img-fluid w-100"
+                                        <img class="img-fluid "
                                              th:src="@{${'/productImages/' + item.image}}"
                                              src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg" alt="Sample">
 
                                     </div>
                                 </div>
-                                <div class="col-md-7 col-lg-9 col-xl-9">
+                                <div class="col-md-4 col-lg-4 col-xl-4">
+                                    <h6 th:text="${item.name}"></h6>
+                                </div>
+                                <div class="col-md-4 col-lg-6 col-xl-6">
                                     <div>
 
                                         <div class="mt-5 d-flex justify-content-between align-items-center">
+
                                             <div>
                                                 <a href="#!" th:href="@{/cart/removeItem/{index}(index=${iStat.index})}"  type="button" class="card-link-secondary small text-uppercase mr-3"><i
                                                         class="fas fa-trash-alt mr-1"></i> Remove item </a>
@@ -88,6 +92,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <hr class="mb-4">
                             </div>
                             <hr class="mb-4">
 
@@ -131,9 +136,17 @@
                                     <span><strong>$ <span th:text="${total}"> VNĐ</span></strong></span>
                                 </li>
                             </ul>
-
-                            <a th:href="@{/checkout}" h class="btn btn-primary btn-block waves-effect waves-light">go to
-                                checkout</a>
+                            <form th:action="@{/client/cart/checkout}" method="post">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Phone</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">Checkout</button>
+                            </form>
 
                         </div>
                     </div>
