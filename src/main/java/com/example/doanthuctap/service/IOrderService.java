@@ -6,4 +6,5 @@ import com.example.doanthuctap.entity.OrderEntity;
 public interface IOrderService {
     OrderEntity save(OrderDTO orderDTO);
     OrderDTO getOderById(int id);
+
 }

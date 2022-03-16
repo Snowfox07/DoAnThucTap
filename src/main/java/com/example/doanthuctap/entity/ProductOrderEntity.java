@@ -15,29 +15,27 @@ import java.util.Date;
 @Table(name="product_order")
 public class ProductOrderEntity {
 
-    @EmbeddedId()
-    private CompositeKeyProductOrder id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
-    @ManyToOne()
-    @MapsId("productId")
-    @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    @Column(name = "product_id")
+    private int productId;
 
-    @ManyToOne()
-    @MapsId("orderId")
-    @JoinColumn(name = "order_id")
-    private OrderEntity order;
+
+    @Column(name = "order_id")
+    private int orderId;
 
     @Column(name = "quantity")
     private int quantity;
 
-
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "ProductOrderEntity{" +
                 "id=" + id +
-                ", product=" + product.toString() +
-                ", order=" + order.toString() +
+                ", productId=" + productId +
+                ", orderId=" + orderId +
                 ", quantity=" + quantity +
                 '}';
     }

@@ -33,9 +33,6 @@ public class OrderEntity {
     @Column(name = "created_at")
     private String createdAt;
 
-    @OneToMany(mappedBy = "order")
-    private List<ProductOrderEntity> productOrderEntities = new ArrayList<>();
-
     @Override
     public String toString() {
         return "OrderEntity{" +

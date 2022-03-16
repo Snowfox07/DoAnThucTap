@@ -6,14 +6,11 @@ import com.example.doanthuctap.dto.OrderDTO;
 import com.example.doanthuctap.dto.ProductDTO;
 import com.example.doanthuctap.dto.ProductOrderDTO;
 import com.example.doanthuctap.dto.UserDTO;
-import com.example.doanthuctap.entity.OrderEntity;
-import com.example.doanthuctap.entity.ProductEntity;
 import com.example.doanthuctap.service.implement.OrderService;
 import com.example.doanthuctap.service.implement.ProductOrderService;
 import com.example.doanthuctap.service.implement.ProductService;
 import com.example.doanthuctap.service.implement.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,22 +18,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.sql.SQLOutput;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 @RequestMapping("/client/cart")
 public class CartController {
-
-    @Autowired
-    private ProductService productService;
-
-    @Autowired
-    private OrderService orderService;
-
-    @Autowired
-    private OrderConverter orderConverter;
 
     @Autowired
     private ProductOrderService productOrderService;
@@ -44,11 +29,20 @@ public class CartController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private OrderConverter orderConverter;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private ProductService productService;
+
     @GetMapping()
-    public String cartGet(Model model){
+    public String cartGet(Model model) {
         model.addAttribute("cartCount", null);
         model.addAttribute("total", null);
-        model.addAttribute("cart", null);
+        model.addAttribute("cart", GlobalData.carts);
         return "client/cart";
     }
 
@@ -60,15 +54,32 @@ public class CartController {
             OrderDTO orderDTO = new OrderDTO();
             orderDTO.setUserId(userDTO.getId());
             GlobalData.orderDTO = orderConverter.toDTO(orderService.save(orderDTO));
-
+            GlobalData.isCheckout=false;
         }
-        ProductDTO productDTO = productService.getProductById(id);
-        ProductOrderDTO productOrderDTO = new ProductOrderDTO();
-        productOrderDTO.setProduct(productDTO);
-        productOrderDTO.setOrder(GlobalData.orderDTO);
-        productOrderService.save(productOrderDTO);
+        ProductOrderDTO productOrderDTO = getProduct(id, GlobalData.orderDTO.getId());
+        if(productOrderDTO!=null){
+            productOrderDTO.plusQuantity();
+            productOrderService.save(productOrderDTO);
+        }else {
+            productOrderDTO = new ProductOrderDTO();
+            productOrderDTO.setQuantity(1);
+            ProductDTO productDTO = productService.getProductById(id);
+            GlobalData.carts.add(productDTO);
+            productOrderDTO.setProductId(productDTO.getId());
+            productOrderDTO.setOrderId(GlobalData.orderDTO.getId());
+            productOrderService.save(productOrderDTO);
+        }
 
         return "redirect:/client/shop";
     }//click add from page viewProduct
+
+    public ProductOrderDTO getProduct(int productId, int orderId){
+        ProductOrderDTO productOrderDTO = productOrderService.getOrderByProductIdAndOrderId(productId,orderId);
+        return productOrderDTO;
+    }
+
+    public boolean productIdIsExist(int id){
+        return productOrderService.findByProductId(id);
+    }
 
 }

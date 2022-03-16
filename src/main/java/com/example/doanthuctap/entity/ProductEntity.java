@@ -48,8 +48,6 @@ public class ProductEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductOrderEntity> productOrderEntities = new ArrayList<>();
 
     @Override
     public String toString() {
